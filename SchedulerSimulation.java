@@ -32,6 +32,11 @@ class Process implements Runnable {
     // 1 Feature - Adds process priority and shows it in ready queue messages
     private int priority;
 
+    // 3 Feature - Tracks creation time
+    private long creationTime;
+    private long lastEnqueueTime;
+    private long totalWaitingTime;
+
     // Constructor to initialize the process with name, burst time, and time quantum
     public Process(String name, int burstTime, int timeQuantum, int priority) {
         this.name = name;
@@ -39,6 +44,9 @@ class Process implements Runnable {
         this.timeQuantum = timeQuantum;
         this.remainingTime = burstTime;
         this.priority = priority;
+        this.creationTime = System.currentTimeMillis();
+        this.lastEnqueueTime = this.creationTime;
+        this.totalWaitingTime = 0;
     }
 
     // This method will be called when the thread for this process is started
@@ -145,6 +153,23 @@ class Process implements Runnable {
         return priority;
     }
 
+    // 3 Feature - Tracks creation time
+    public void markEnqueueTime() {
+        lastEnqueueTime = System.currentTimeMillis();
+    }
+
+    public void addWaitingTime() {
+        totalWaitingTime += System.currentTimeMillis() - lastEnqueueTime;
+    }
+
+    public long getCreationTime() {
+        return creationTime;
+    }
+
+    public long getTotalWaitingTime() {
+        return totalWaitingTime;
+    }
+
     // Check if the process has finished (i.e., no remaining time)
     public boolean isFinished() {
         return remainingTime <= 0;
@@ -176,6 +201,8 @@ public class SchedulerSimulation {
 
         // Map to associate each thread with its respective process object
         Map<Thread, Process> processMap = new HashMap<>();
+
+        java.util.List<Process> allProcesses = new java.util.ArrayList<>();
 
         // Print simulation header with elegant formatting
         System.out.println("\n" + Colors.BOLD + Colors.BRIGHT_CYAN +
@@ -214,6 +241,8 @@ public class SchedulerSimulation {
             // time quantum
             Process process = new Process("P" + i, burstTime, timeQuantum, priority);
 
+            allProcesses.add(process); // 3 Feature
+
             // Add the process to the ready queue and the map
             addProcessToQueue(process, processQueue, processMap);
         }
@@ -234,6 +263,9 @@ public class SchedulerSimulation {
         while (!processQueue.isEmpty()) {
             // Get the next thread from the queue (FIFO)
             Thread currentThread = processQueue.poll(); // Dequeues the next thread
+
+            Process currentProcess = processMap.get(currentThread);
+            currentProcess.addWaitingTime();
 
             // Print the current process queue (list of process IDs in the queue)
             System.out.println(Colors.BOLD + Colors.MAGENTA + "┌─ Ready Queue " + "─".repeat(65) + Colors.RESET);
@@ -285,6 +317,15 @@ public class SchedulerSimulation {
         }
 
         // End of the scheduler simulation
+
+        // Feature 3
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + "Waiting Time Summary:" + Colors.RESET);
+        System.out.println("Process Name\tBurst Time\tWaiting Time");
+        for (Process p : allProcesses) {
+            System.out.println(p.getName() + "\t\t" + p.getBurstTime() + "ms\t\t" + p.getTotalWaitingTime() + "ms");
+        }
+        System.out.println();
+
         System.out.println(Colors.BRIGHT_YELLOW + "Total context switches: " +
                 contextSwitchCount + Colors.RESET);
         System.out.println();
@@ -307,6 +348,7 @@ public class SchedulerSimulation {
         // Create a new thread to run the process
         Thread thread = new Thread(process);
 
+        process.markEnqueueTime();
         // Add the thread to the ready queue
         processQueue.add(thread);
 
