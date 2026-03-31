@@ -32,68 +32,79 @@ Document your development process as you work on the assignment. Add entries sho
 
 ## Your Development Log:
 
-### Entry 1 - [Date and Time]
-**What I did**: 
+### Entry 1 - [Mar 28, 2026, 9:00 PM]
+**What I did**: Set up GitHub and forked repository
 
 **Details**: 
+- Created GitHub account
+- Forked repo
+- Set student ID
+- Ran program
 
-**Challenges**: 
+**Challenges**: JDK not configured
 
-**Solution**: 
+**Solution**: Installed JDK and fixed PATH
 
-**Time spent**: 
+**Time spent**: 3 hour
+---
+
+### Entry 2 - [Mar 30, 2026, 9:30 PM]
+**What I did**: Implemented Feature 1 (Priority)
+
+**Details**:
+- Added priority field
+- Displayed in queue
+
+**Challenges**: Where to print priority
+
+**Solution**: Added inside addProcessToQueue
+
+**Time spent**:  1 hours
 
 ---
 
-### Entry 2 - [Date and Time]
-**What I did**: 
+### Entry 3 - [Mar 31, 2026, 10:30 PM]
+**What I did**: Implemented Feature 2
 
-**Details**: 
+**Details**:
+- Added counter
+- Printed at end
 
-**Challenges**: 
+**Challenges**: Where to increment
 
-**Solution**: 
+**Solution**: Before start()
 
-**Time spent**: 
-
----
-
-### Entry 3 - [Date and Time]
-**What I did**: 
-
-**Details**: 
-
-**Challenges**: 
-
-**Solution**: 
-
-**Time spent**: 
+**Time spent**:  1 hours
 
 ---
 
-### Entry 4 - [Date and Time]
-**What I did**: 
+### Entry 4 - [[Mar 30, 2026, 11:30 PM]
+**What I did**: Implemented waiting time
 
-**Details**: 
+**Details**:
+- Added fields
+- Calculated tim
 
-**Challenges**: 
+**Challenges**: Wrong values
 
-**Solution**: 
+**Solution**: Fixed timing location
 
-**Time spent**: 
+**Time spent**: 1 hours
 
 ---
 
-### Entry 5 - [Date and Time]
-**What I did**: 
+### Entry 5 - [[Mar 31, 2026, 12:15 AM]
+**What I did**: Final testing + documentation
 
 **Details**: 
+- Checked output
+- Completed markdown files
 
-**Challenges**: 
+**Challenges**: Formatting
 
-**Solution**: 
+**Solution**: Adjusted output
 
-**Time spent**: 
+**Time spent**:  30 hour
 
 ---
 
@@ -112,10 +123,10 @@ Document your development process as you work on the assignment. Add entries sho
 
 ## Summary
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: [3 Days]
 
-**Most challenging part**: 
+**Most challenging part**: putting the waiting time function into practice, particularly accurately tracking time and positioning the calculation in the appropriate section of the code.
 
-**Most interesting learning**: 
+**Most interesting learning**: Knowing how Round-Robin scheduling operates and how context-switching operations go through the ready queue
 
-**What I would do differently next time**: 
+**What I would do differently next time**: Improve your implementation strategy and test each feature independently before merging them.
